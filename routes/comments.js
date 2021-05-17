@@ -14,6 +14,7 @@ router.post(
 	passport.authenticate('jwt', { session: false, failWithError: true }),
 	commentsController.create
 )
+
 router.post(
 	'/delete-comment',
 	passport.authenticate('jwt', { session: false, failWithError: true }),

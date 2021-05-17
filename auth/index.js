@@ -11,28 +11,6 @@ module.exports = (passport) => {
 		done(null, user)
 	})
 
-	// Authenticate user from Google OAuth using passport
-	passport.use(
-		new GoogleStrategy(
-			{
-				clientID: process.env.LEVERAGE_GOOGLE_CLIENT_ID,
-				clientSecret: process.env.LEVERAGE_GOOGLE_CLIENT_SECRET,
-				callbackURL: '/api/auth/google/callback'
-			},
-			(token, refreshToken, profile, done) => {
-				if (passport.googleTokens) {
-					passport.googleTokens.accessToken = token
-				} else {
-					passport.googleTokens = {
-						accessToken: token,
-						refreshToken: refreshToken
-					}
-				}
-				return done(null, { profile })
-			}
-		)
-	)
-
 	// create jwt to authenticate user request.
 	passport.jwtSecret = process.env.LEVERAGE_JWT_SECRET
 	passport.use(

@@ -2,23 +2,6 @@ const User = require('../models/user')
 const passport = require('passport')
 const axios = require('axios')
 
-module.exports = {
-	create(req, res) {
-		return User.upsert(
-			{
-				name: req.body.title,
-				email: req.body.email,
-				oAuthId: req.body.oAuthId
-			},
-			{ returning: true }
-		)
-			.then((user) => res.status(201).send(user))
-			.catch((err) => res.status(400).send(err))
-	}
-}
-
-module.exports.get_user_data = () => {}
-
 module.exports.getUserContacts = async (req, res) => {
 	try {
 		const googleContacts = await axios.get(
@@ -54,9 +37,12 @@ module.exports.getUserContacts = async (req, res) => {
 			return obj
 		})
 		res.status(200).send({ connections: filteredData })
-		// res.status(200).send(googleContacts.data)
 	} catch (err) {
-		res.status(err.response.status).send(err)
+		if (err.response) {
+			res.status(err.response.status).send(err)
+		} else {
+			res.status(500).send(err)
+		}
 	}
 }
 
@@ -77,22 +63,10 @@ module.exports.getContactDetails = async (req, res) => {
 
 		res.status(200).send(contactDetails.data)
 	} catch (err) {
-		res.status(err.response.status).send(err)
+		if (err.response) {
+			res.status(err.response.status).send(err)
+		} else {
+			res.status(500).send(err)
+		}
 	}
 }
-
-/*
-	User.upsert(
-		{
-			name: profile.name,
-			email: profile.email,
-			picture: profile.picture
-		},
-		{ returning: true }
-	).then(() => {
-		return done(null, {
-			profile: profile,
-			token: token
-		})
-  })
-*/

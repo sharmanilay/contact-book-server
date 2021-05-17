@@ -20,48 +20,54 @@ exports.create = async (req, res) => {
 			res.status(401).send('Authentication failed, please login to continue')
 		}
 	} catch (err) {
-		res.status(500).send(err)
+		if (err.response) {
+			res.status(err.response.status).send(err)
+		} else {
+			res.status(500).send(err)
+		}
 	}
 }
 
 // Retrieve all Comment from the database.
-exports.getComments = (req, res) => {
-	const { comment_for_user } = req.query
-	if (req.user.id) {
-		db.Comment.findAll({
-			where: {
-				userId: req.user.id,
-				comment_for_user
-			},
-			raw: true
-		}).then((resp) => {
-			res.send(resp)
-		})
-	} else {
-		res.status(401).send('Auth Failed')
+exports.getComments = async (req, res) => {
+	try {
+		const { comment_for_user } = req.query
+		if (req.user.id) {
+			const comments = await db.Comment.findAll({
+				where: {
+					userId: req.user.id,
+					comment_for_user
+				},
+				raw: true
+			})
+			res.status(200).send(comments)
+		} else {
+			res.status(401).send('Authorization Failed, please try again')
+		}
+	} catch (err) {
+		if (err.response) {
+			res.status(err.response.status).send(err)
+		} else {
+			res.status(500).send(err)
+		}
 	}
 }
 
-// Find a single Comment with an id
-exports.findOne = (req, res) => {
-	const { id } = req.query
-	db.Comment.findbyPk(id).then((comment) => res.send(comment))
-}
-
-// Update a Comment by the id in the request
-exports.update = (req, res) => {}
-
 // Delete a Comment with the specified id in the request
-exports.delete = (req, res) => {
-	const { id } = req.body
-	db.Comment.destroy({
-		where: {
-			id
+exports.delete = async (req, res) => {
+	try {
+		const { id } = req.body
+		const commentId = await db.Comment.destroy({
+			where: {
+				id
+			}
+		})
+		res.status(200).send({ message: `Comment ${commentId} deleted` })
+	} catch (err) {
+		if (err.response) {
+			res.status(err.response.status).send(err)
+		} else {
+			res.status(500).send(err)
 		}
-	}).then((comment) => {
-		res.status(200).send({ message: `Comment ${comment} deleted` })
-	})
+	}
 }
-
-// Delete all Comment from the database.
-exports.deleteAll = (req, res) => {}

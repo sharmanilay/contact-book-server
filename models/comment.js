@@ -2,7 +2,7 @@ const { Model } = require('sequelize')
 module.exports = (sequelize, DataTypes) => {
 	class Comment extends Model {
 		static associate(models) {
-			// define association here
+			// Each comment only belongs to one User, though there can be multiple comments for same contact
 			this.belongsTo(models.User, {
 				foreignKey: 'userId',
 				onDelete: 'CASCADE'
