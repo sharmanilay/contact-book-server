@@ -23,7 +23,7 @@ app.use(passport.initialize())
 app.use(passport.session())
 
 var corsOptions = {
-	origin: 'http://localhost:3001'
+	origin: process.env.LEVERAGE_CLIENT_HOME_PAGE_URL
 }
 app.use(cors(corsOptions))
 app.use(morgan('dev'))
