@@ -1,0 +1,35 @@
+{
+	"name": "contact-book-server",
+	"version": "1.0.0",
+	"description": "server application for contact book",
+	"main": "server.js",
+	"engines": {
+		"node": "12.13.0"
+	},
+	"scripts": {
+		"dev": "nodemon server.js",
+		"start:prod": "NODE_ENV=production nodemon server.js",
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"author": "Nilay Sharma",
+	"license": "ISC",
+	"dependencies": {
+		"axios": "^0.21.1",
+		"body-parser": "^1.19.0",
+		"cookie-parser": "^1.4.5",
+		"cookie-session": "^1.4.0",
+		"cors": "^2.8.5",
+		"express": "^4.17.1",
+		"express-session": "^1.17.1",
+		"googleapis": "^73.0.0",
+		"jsonwebtoken": "^8.5.1",
+		"morgan": "^1.10.0",
+		"passport": "^0.4.1",
+		"passport-google-oauth20": "^2.0.0",
+		"passport-jwt": "^4.0.0",
+		"passport-local": "^1.0.0",
+		"pg": "^8.6.0",
+		"pg-hstore": "^2.3.3",
+		"sequelize": "^6.6.2"
+	}
+}
