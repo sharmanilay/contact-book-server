@@ -28,7 +28,7 @@ exports.create = async (req, res) => {
 	}
 }
 
-// Retrieve all Comment from the database.
+// Retrieve all Comment for given contact of the user
 exports.getComments = async (req, res) => {
 	try {
 		const { comment_for_user } = req.query
