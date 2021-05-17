@@ -25,6 +25,8 @@ Steps for installation:
 - `sequelize db:migrate`
 - `npm run dev`
 
+Note: for testing the app without using your own google accoount, you can create a test google account and import these [sample contacts](https://letterhub.com/sample-csv-file-with-contacts/) into google contacts
+
 ## Structure
 
 The application is divided into modules as per their functionality.
