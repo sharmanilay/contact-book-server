@@ -26,6 +26,7 @@ var corsOptions = {
 	origin: process.env.LEVERAGE_CLIENT_HOME_PAGE_URL
 }
 app.use(cors(corsOptions))
+app.options('*', cors(corsOptions))
 app.use(morgan('dev'))
 
 db.sequelize.sync({}).then(() => {
