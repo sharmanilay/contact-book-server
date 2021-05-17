@@ -15,17 +15,16 @@ const userRoutes = require('./routes/user')
 const commentsRoutes = require('./routes/comments')
 
 const app = express()
+let corsOptions = {
+	origin: process.env.LEVERAGE_CLIENT_HOME_PAGE_URL
+}
+app.use(cors(corsOptions))
 
 app.use(cookieParser())
 
 auth(passport)
 app.use(passport.initialize())
 app.use(passport.session())
-
-// var corsOptions = {
-// 	origin: process.env.LEVERAGE_CLIENT_HOME_PAGE_URL
-// }
-app.use(cors())
 
 app.use(morgan('dev'))
 
