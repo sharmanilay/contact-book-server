@@ -65,34 +65,3 @@ exports.delete = (req, res) => {
 
 // Delete all Comment from the database.
 exports.deleteAll = (req, res) => {}
-
-/*
-get all commens by a user
-
-	db.User.findByPk(req.user.id, {
-		include: [
-			{
-				model: db.Comment,
-				as: 'comments',
-				required: true
-			}
-		]
-	})
-		.then((user) => {
-			// if (!user.comments) {
-			// 	return res.status(404).send({
-			// 		message: 'No comments found'
-			// 	})
-			// }
-			console.log(user.toJSON())
-			// filteredComments = comments.filter((comment) => {
-			// 	console.log(comment)
-			// 	comment.comment_for_user === comment_for_user
-			// })
-			return res.status(200).send(user)
-		})
-		.catch((error) => {
-			console.log(error)
-			res.status(400).send(error)
-		})
-*/
